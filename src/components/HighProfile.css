@@ -1,0 +1,43 @@
+.profileImageWrapper{
+    text-align: center;
+}
+.profileImageWrapper p{
+    font-size: 25px;
+    font-weight: bold;
+}
+.profileImage{
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+}
+.LinkWrapper{
+    text-align: center;
+}
+.Linkli{
+    text-align: center;
+    list-style: none;
+}
+.Linkli li{
+    display: inline-block;
+    font-size: 35px;
+    font-weight: bold;
+    color: dimgray;
+    margin: 0 8% 0 8%;
+}
+a:link{
+    text-decoration: none;
+    color: dimgray;
+}
+a:visited{
+    text-decoration: none;
+    color: dimgray;
+}
+a:hover{
+    text-decoration: none;
+    color: dimgray;
+}
+.line{
+    width: 100%;
+    border: 1px solid dimgray;
+    box-shadow: 0 0 20px 0 dimgray;
+}

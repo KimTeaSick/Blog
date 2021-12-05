@@ -1,0 +1,11 @@
+.profileWrapper{
+    padding: 3%;
+}
+.name{
+    font-size: 25px;
+    font-weight: bold;
+}
+.content{
+    padding: 15px;
+    font-size: 18px;
+}

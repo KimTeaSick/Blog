@@ -1,0 +1,25 @@
+
+.portfolioWrapper{
+    padding: 1%;
+}
+.name{
+    font-size: 25px;
+    font-weight: bold;
+}
+.metroketWrapper{
+    text-align: center;
+}
+.newrungopWrapper{
+    text-align: center;
+}
+.metroketImg{
+    width: 350px;
+    height: auto;
+}
+.newrungopImg{
+    width: 400px;
+    height: auto;
+}
+.content{
+    padding: 3%;
+}
