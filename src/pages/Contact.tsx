@@ -7,6 +7,7 @@ const Contact = () => (
 			<br />
 			항상 배우려는 자세로 작업에 임하겠습니다.
 		</p>
+		<p></p>
 		<p>notseph8556@gmail.com</p>
 		<p>010 9109 4860</p>
 		<p>
