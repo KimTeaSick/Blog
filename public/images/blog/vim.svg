@@ -1,0 +1,9 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" fill="#019833"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="48" fill="white" font-weight="bold">
+    VIM
+  </text>
+  <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="18" fill="#e5e7eb">
+    The Unsung Hero of Code Editors
+  </text>
+</svg>
