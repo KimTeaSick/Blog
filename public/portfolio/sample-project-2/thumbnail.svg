@@ -1,9 +1,0 @@
-<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="400" fill="#8b5cf6"/>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="white" font-weight="bold">
-    Collaboration Tool
-  </text>
-  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#e5e7eb">
-    React • WebRTC • Socket.io
-  </text>
-</svg>
