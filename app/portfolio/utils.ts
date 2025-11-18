@@ -70,7 +70,7 @@ function getProjectImages(projectPath: string): string[] {
 }
 
 export function getPortfolioProjects(): PortfolioProject[] {
-  const portfolioDir = path.join(process.cwd(), 'public', 'portfolio')
+  const portfolioDir = path.join(process.cwd(), 'contents', 'portfolio')
 
   // Create directory if it doesn't exist
   if (!fs.existsSync(portfolioDir)) {
@@ -102,7 +102,7 @@ export function getPortfolioProjects(): PortfolioProject[] {
           file.startsWith('thumbnail')
         )
         if (thumbnailFiles.length > 0) {
-          metadata.thumbnail = `/portfolio/${dir}/${thumbnailFiles[0]}`
+          metadata.thumbnail = `/api/portfolio-image/${dir}/${thumbnailFiles[0]}`
         }
       }
 
@@ -110,7 +110,7 @@ export function getPortfolioProjects(): PortfolioProject[] {
         slug: dir,
         metadata,
         content,
-        images: images.map((img) => `/portfolio/${dir}/${img}`),
+        images: images.map((img) => `/api/portfolio-image/${dir}/${img}`),
       }
     })
     .filter((project): project is PortfolioProject => project !== null)
