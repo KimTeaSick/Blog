@@ -93,7 +93,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
         </p>
       </div>
       <article className="prose">
-        <CustomMDX source={post.content} />
+        <CustomMDX source={post.content} slug={slug} />
       </article>
     </section>
   )

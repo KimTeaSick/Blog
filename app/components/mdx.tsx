@@ -44,8 +44,17 @@ function CustomLink(props) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
+function createRoundedImage(slug?: string) {
+  return function RoundedImage(props) {
+    let src = props.src
+
+    // Convert relative paths to API route for blog posts
+    if (slug && src && !src.startsWith('http') && !src.startsWith('/')) {
+      src = `/api/blog-image/${slug}/${src}`
+    }
+
+    return <Image alt={props.alt} className="rounded-lg" {...props} src={src} />
+  }
 }
 
 function Code({ children, ...props }) {
@@ -86,23 +95,26 @@ function createHeading(level) {
   return Heading
 }
 
-let components = {
-  h1: createHeading(1),
-  h2: createHeading(2),
-  h3: createHeading(3),
-  h4: createHeading(4),
-  h5: createHeading(5),
-  h6: createHeading(6),
-  Image: RoundedImage,
-  a: CustomLink,
-  code: Code,
-  Table,
-}
-
 export function CustomMDX(props) {
+  const { slug, ...rest } = props
+
+  const components = {
+    h1: createHeading(1),
+    h2: createHeading(2),
+    h3: createHeading(3),
+    h4: createHeading(4),
+    h5: createHeading(5),
+    h6: createHeading(6),
+    Image: createRoundedImage(slug),
+    img: createRoundedImage(slug),
+    a: CustomLink,
+    code: Code,
+    Table,
+  }
+
   return (
     <MDXRemote
-      {...props}
+      {...rest}
       components={{ ...components, ...(props.components || {}) }}
     />
   )
