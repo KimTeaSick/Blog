@@ -146,23 +146,19 @@ export default async function PortfolioProject({ params }: { params: Promise<{ s
 
       {/* Image Gallery */}
       {project.images.length > 0 && (
-        <div className="mt-12">
-          <h2 className="font-semibold text-xl mb-4 tracking-tight">Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {project.images.map((image, index) => (
-              <div
-                key={image}
-                className="relative w-full h-64 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800"
-              >
-                <Image
-                  src={image}
-                  alt={`${project.metadata.title} - Image ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="mt-12 space-y-4">
+          {project.images.map((image, index) => (
+            <div
+              key={image}
+              className="w-full rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800"
+            >
+              <img
+                src={image}
+                alt={`${project.metadata.title} - Image ${index + 1}`}
+                className="w-full h-auto"
+              />
+            </div>
+          ))}
         </div>
       )}
     </section>
