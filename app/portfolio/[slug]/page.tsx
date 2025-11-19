@@ -141,7 +141,7 @@ export default async function PortfolioProject({ params }: { params: Promise<{ s
 
       {/* Content */}
       <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <CustomMDX source={project.content} />
+        <CustomMDX source={project.content} slug={slug} type="portfolio" />
       </article>
 
       {/* Image Gallery */}

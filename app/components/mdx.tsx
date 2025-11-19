@@ -44,13 +44,17 @@ function CustomLink(props) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function createRoundedImage(slug?: string) {
+function createRoundedImage(slug?: string, type?: string) {
   return function RoundedImage(props) {
     let src = props.src
 
-    // Convert relative paths to API route for blog posts
+    // Convert relative paths to API route
     if (slug && src && !src.startsWith('http') && !src.startsWith('/')) {
-      src = `/api/blog-image/${slug}/${src}`
+      if (type === 'portfolio') {
+        src = `/api/portfolio-image/${slug}/${src}`
+      } else {
+        src = `/api/blog-image/${slug}/${src}`
+      }
     }
 
     // If no width/height provided, use unoptimized img tag
@@ -109,7 +113,7 @@ function createHeading(level) {
 }
 
 export function CustomMDX(props) {
-  const { slug, ...rest } = props
+  const { slug, type, ...rest } = props
 
   const components = {
     h1: createHeading(1),
@@ -118,8 +122,8 @@ export function CustomMDX(props) {
     h4: createHeading(4),
     h5: createHeading(5),
     h6: createHeading(6),
-    Image: createRoundedImage(slug),
-    img: createRoundedImage(slug),
+    Image: createRoundedImage(slug, type),
+    img: createRoundedImage(slug, type),
     a: CustomLink,
     code: Code,
     Table,
