@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postinstall": "git submodule update --init --recursive || true"
+    "postinstall": "git submodule update --init --recursive --remote || true"
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.0.0-alpha.13",
