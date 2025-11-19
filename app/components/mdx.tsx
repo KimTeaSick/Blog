@@ -53,6 +53,19 @@ function createRoundedImage(slug?: string) {
       src = `/api/blog-image/${slug}/${src}`
     }
 
+    // If no width/height provided, use unoptimized img tag
+    if (!props.width || !props.height) {
+      return (
+        <img
+          alt={props.alt}
+          className="rounded-lg"
+          {...props}
+          src={src}
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+      )
+    }
+
     return <Image alt={props.alt} className="rounded-lg" {...props} src={src} />
   }
 }
