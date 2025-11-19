@@ -4,10 +4,10 @@ import path from 'path'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { project: string; image: string } }
+  { params }: { params: Promise<{ project: string; image: string }> }
 ) {
   try {
-    const { project, image } = params
+    const { project, image } = await params
     const imagePath = path.join(
       process.cwd(),
       'contents',
