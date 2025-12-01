@@ -1,17 +1,17 @@
-import Link from 'next/link'
-import { ThemeToggle } from './theme-toggle'
+import Link from "next/link";
+import { ThemeToggle } from "./theme-toggle";
 
 const navItems = {
-  '/': {
-    name: 'home',
+  "/": {
+    name: "home",
   },
-  '/portfolio': {
-    name: 'portfolio',
+  "/portfolio": {
+    name: "portfolio",
   },
-  '/blog': {
-    name: 'blog',
+  "/blog": {
+    name: "blog",
   },
-}
+};
 
 export function Navbar() {
   return (
@@ -31,12 +31,12 @@ export function Navbar() {
                 >
                   {name}
                 </Link>
-              )
+              );
             })}
           </div>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </nav>
       </div>
     </aside>
-  )
+  );
 }
