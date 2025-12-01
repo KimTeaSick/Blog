@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { formatDate, getPortfolioProjects } from 'app/portfolio/utils'
+import Link from "next/link";
+import Image from "next/image";
+import { formatDate, getPortfolioProjects } from "app/portfolio/utils";
 
 export function PortfolioList({ limit }: { limit?: number }) {
-  let projects = getPortfolioProjects()
+  let projects = getPortfolioProjects();
 
   if (limit) {
-    projects = projects.slice(0, limit)
+    projects = projects.slice(0, limit);
   }
 
   if (projects.length === 0) {
@@ -14,7 +14,7 @@ export function PortfolioList({ limit }: { limit?: number }) {
       <p className="text-neutral-600 dark:text-neutral-400">
         No portfolio projects yet.
       </p>
-    )
+    );
   }
 
   return (
@@ -65,5 +65,5 @@ export function PortfolioList({ limit }: { limit?: number }) {
         </Link>
       ))}
     </div>
-  )
+  );
 }

@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+/* Custom dark mode variant for Tailwind v4 */
+.dark {
+  color-scheme: dark;
+}
+
+/* Force Tailwind dark mode classes to work */
+:root {
+  --tw-dark-mode: initial;
+}
+
+.dark {
+  --tw-dark-mode: ;
+}
+
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;

@@ -6,18 +6,18 @@ import React from 'react'
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
+    <th key={index} className="border border-neutral-200 dark:border-neutral-700 px-4 py-2 bg-neutral-50 dark:bg-neutral-800 text-left">{header}</th>
   ))
   let rows = data.rows.map((row, index) => (
-    <tr key={index}>
+    <tr key={index} className="border-b border-neutral-200 dark:border-neutral-700">
       {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
+        <td key={cellIndex} className="border border-neutral-200 dark:border-neutral-700 px-4 py-2">{cell}</td>
       ))}
     </tr>
   ))
 
   return (
-    <table>
+    <table className="w-full border-collapse border border-neutral-200 dark:border-neutral-700 my-6">
       <thead>
         <tr>{headers}</tr>
       </thead>

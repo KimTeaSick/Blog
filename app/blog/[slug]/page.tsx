@@ -92,7 +92,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose">
+      <article className="prose prose-neutral dark:prose-invert max-w-none">
         <CustomMDX source={post.content} slug={slug} />
       </article>
     </section>

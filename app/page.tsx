@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { BlogPosts } from 'app/components/posts'
-import { PortfolioList } from 'app/components/portfolio-list'
+import Link from "next/link";
+import { BlogPosts } from "app/components/posts";
+import { PortfolioList } from "app/components/portfolio-list";
 
 export default function Page() {
   return (
@@ -8,13 +8,39 @@ export default function Page() {
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
         Joseph Kim
       </h1>
-      <p className="mb-4">
-        {`I'm a Vim enthusiast and tab advocate, finding unmatched efficiency in
-        Vim's keystroke commands and tabs' flexibility for personal viewing
-        preferences. This extends to my support for static typing, where its
-        early error detection ensures cleaner code, and my preference for dark
-        mode, which eases long coding sessions by reducing eye strain.`}
-      </p>
+
+      <div className="mb-12 space-y-6">
+        <div className="space-y-4">
+          <p className="text-lg leading-relaxed text-neutral-800 dark:text-neutral-200">
+            프론트엔드 개발자로써{" "}
+            <span className="font-medium text-neutral-900 dark:text-neutral-100">
+              "사용자가 이 버튼 꼭 누르게 하고 싶다"
+            </span>
+            는 집념으로 인터랙션을 만들어왔습니다.
+          </p>
+
+          <p className="text-lg leading-relaxed text-neutral-800 dark:text-neutral-200">
+            특수 학급용 AIDT 서비스도 직접 설계·개발해서, 지금은{" "}
+            <span className="font-medium text-neutral-900 dark:text-neutral-100">
+              국가특수교육원에서 실제로 쓰이고 있어
+            </span>{" "}
+            괜히 어깨가 올라갑니다.
+          </p>
+        </div>
+
+        <div className="border-l-2 border-neutral-300 dark:border-neutral-700 pl-4 py-2">
+          <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
+            기술은 멋있어 보여도, 결국{" "}
+            <span className="italic">"사람들이 편하게 쓸 수 있냐"</span>가 제
+            기준이라 늘 구조부터 차근차근 정리하는 편입니다.
+          </p>
+        </div>
+
+        <p className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+          결론은… 잘 보이고, 잘 눌리고, 잘쓰이는 서비스 만드는 일을 누구보다
+          즐깁니다.
+        </p>
+      </div>
 
       {/* Portfolio Section */}
       <div className="my-12">
@@ -35,9 +61,7 @@ export default function Page() {
       {/* Blog Section */}
       <div className="my-12">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold tracking-tight">
-            Recent Posts
-          </h2>
+          <h2 className="text-xl font-semibold tracking-tight">Recent Posts</h2>
           <Link
             href="/blog"
             className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
@@ -48,5 +72,5 @@ export default function Page() {
         <BlogPosts limit={3} />
       </div>
     </section>
-  )
+  );
 }
