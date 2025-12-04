@@ -2,6 +2,9 @@ import Link from "next/link";
 import { BlogPosts } from "app/components/posts";
 import { PortfolioList } from "app/components/portfolio-list";
 
+// ISR: 60초마다 자동으로 재검증
+export const revalidate = 60
+
 export default function Page() {
   return (
     <section>

@@ -1,5 +1,8 @@
 import { BlogPosts } from 'app/components/posts'
 
+// ISR: 60초마다 자동으로 재검증
+export const revalidate = 60
+
 export const metadata = {
   title: 'Blog',
   description: 'Read my blog.',

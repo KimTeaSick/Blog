@@ -3,6 +3,9 @@ import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 
+// ISR: 60초마다 자동으로 재검증
+export const revalidate = 60
+
 export async function generateStaticParams() {
   let posts = getBlogPosts()
 
