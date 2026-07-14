@@ -133,6 +133,9 @@ export function CustomMDX(props) {
     <MDXRemote
       {...rest}
       components={{ ...components, ...(props.components || {}) }}
+      // 콘텐츠는 본인 소유 submodule(신뢰됨)이라 style={{}} 등 정상 JSX 표현식을 허용.
+      // blockDangerousJS 는 기본 true 로 유지되어 eval/Function/require 등 RCE 는 계속 차단.
+      options={{ blockJS: false }}
     />
   )
 }
