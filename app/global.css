@@ -1,17 +1,11 @@
 @import 'tailwindcss';
 
-/* Custom dark mode variant for Tailwind v4 */
+/* Tailwind v4: drive `dark:` utilities via the `.dark` class instead of
+   the default prefers-color-scheme media query, so the toggle works. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 .dark {
   color-scheme: dark;
-}
-
-/* Force Tailwind dark mode classes to work */
-:root {
-  --tw-dark-mode: initial;
-}
-
-.dark {
-  --tw-dark-mode: ;
 }
 
 ::selection {
@@ -31,16 +25,11 @@
   --sh-entity: #e25a1c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
+.dark {
+  --sh-class: #4c97f8;
+  --sh-identifier: white;
+  --sh-keyword: #f47067;
+  --sh-string: #0fa295;
 }
 
 html {
@@ -161,4 +150,99 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+/* ── Home identity: type + motion ─────────────────────────────
+   Palette grounded in the site's own sugar-high syntax colors
+   (blue → indigo → violet), so the accent feels native. */
+
+.font-geist-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Signature: slowly panning gradient on the hero name */
+.text-gradient {
+  background-image: linear-gradient(
+    110deg,
+    #2d5e9d,
+    #47a3f3,
+    #6266d1,
+    #8b5cf6,
+    #47a3f3,
+    #2d5e9d
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-pan 7s linear infinite;
+}
+
+@keyframes gradient-pan {
+  to {
+    background-position: 220% center;
+  }
+}
+
+/* Highlighter marker behind key phrases (distinct from the gradient) */
+.marker {
+  background-image: linear-gradient(
+    120deg,
+    rgba(71, 163, 243, 0.22),
+    rgba(98, 102, 209, 0.22)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 42%;
+  background-position: 0 82%;
+  padding: 0 0.08em;
+  border-radius: 0.1em;
+}
+
+.dark .marker {
+  background-image: linear-gradient(
+    120deg,
+    rgba(71, 163, 243, 0.38),
+    rgba(139, 92, 246, 0.38)
+  );
+}
+
+/* Staggered entrance for the intro block */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  opacity: 0;
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.rise-1 {
+  animation-delay: 0.05s;
+}
+.rise-2 {
+  animation-delay: 0.15s;
+}
+.rise-3 {
+  animation-delay: 0.25s;
+}
+.rise-4 {
+  animation-delay: 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient {
+    animation: none;
+  }
+  .rise {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }

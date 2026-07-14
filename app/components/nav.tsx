@@ -34,7 +34,7 @@ export function Navbar() {
               );
             })}
           </div>
-          {/* <ThemeToggle /> */}
+          <ThemeToggle />
         </nav>
       </div>
     </aside>

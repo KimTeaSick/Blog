@@ -18,7 +18,10 @@ export type BlogPost = {
 function parseFrontmatter(fileContent: string) {
   let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
   let match = frontmatterRegex.exec(fileContent)
-  let frontMatterBlock = match![1]
+  if (!match) {
+    return null
+  }
+  let frontMatterBlock = match[1]
   let content = fileContent.replace(frontmatterRegex, '').trim()
   let frontMatterLines = frontMatterBlock.trim().split('\n')
   let metadata: Partial<Metadata> = {}
@@ -77,6 +80,11 @@ export function getBlogPosts(): BlogPost[] {
         const fileContent = fs.readFileSync(contentPath, 'utf-8')
         const parsed = parseFrontmatter(fileContent)
 
+        if (!parsed) {
+          console.warn(`Skipping post without valid frontmatter: ${entry}`)
+          return null
+        }
+
         slug = entry
         metadata = parsed.metadata
         content = parsed.content
@@ -85,6 +93,11 @@ export function getBlogPosts(): BlogPost[] {
         // Legacy file structure: posts/slug.mdx
         const fileContent = fs.readFileSync(entryPath, 'utf-8')
         const parsed = parseFrontmatter(fileContent)
+
+        if (!parsed) {
+          console.warn(`Skipping post without valid frontmatter: ${entry}`)
+          return null
+        }
 
         slug = path.basename(entry, '.mdx')
         metadata = parsed.metadata
