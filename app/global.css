@@ -180,7 +180,8 @@ table {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 14rem;
     gap: 3rem;
-    align-items: start;
+    /* align-items 기본값(stretch): aside가 본문 높이만큼 늘어나
+       내부 sticky 목차가 글 전체에 걸쳐 따라오도록 함 */
   }
 }
 
