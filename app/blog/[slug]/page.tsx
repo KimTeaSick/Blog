@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { Comments } from 'app/components/comments'
+import { PostNavigation } from 'app/components/post-navigation'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 
@@ -99,6 +100,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
       <article className="prose prose-neutral dark:prose-invert max-w-none">
         <CustomMDX source={post.content} slug={slug} />
       </article>
+      <PostNavigation slug={slug} />
       <Comments />
     </section>
   )
