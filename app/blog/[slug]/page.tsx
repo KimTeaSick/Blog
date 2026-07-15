@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { Comments } from 'app/components/comments'
-import { PostNavigation } from 'app/components/post-navigation'
+import { TableOfContents } from 'app/components/table-of-contents'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
+import { getHeadings } from 'app/lib/toc'
 import { baseUrl } from 'app/sitemap'
 
 // ISR: 60초마다 자동으로 재검증
@@ -65,6 +66,8 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
     notFound()
   }
 
+  const headings = getHeadings(post.content)
+
   return (
     <section>
       <script
@@ -97,10 +100,16 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <CustomMDX source={post.content} slug={slug} />
-      </article>
-      <PostNavigation slug={slug} />
+      <div className="post-layout">
+        <article className="prose prose-neutral dark:prose-invert max-w-none">
+          <CustomMDX source={post.content} slug={slug} />
+        </article>
+        <aside className="hidden xl:block">
+          <div className="sticky top-24">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      </div>
       <Comments />
     </section>
   )

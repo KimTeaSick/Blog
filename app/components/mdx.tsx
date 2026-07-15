@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import remarkGfm from 'remark-gfm'
+import { slugify } from 'app/lib/slugify'
 import React from 'react'
 
 function Table({ data }) {
@@ -78,17 +79,6 @@ function createRoundedImage(slug?: string, type?: string) {
 function Code({ children, ...props }) {
   let codeHTML = highlight(children)
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
-}
-
-function slugify(str) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
 function createHeading(level) {

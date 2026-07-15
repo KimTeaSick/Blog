@@ -173,6 +173,29 @@ table {
   white-space: nowrap;
 }
 
+/* 블로그 상세: 데스크톱(PC 1200+) 2단 레이아웃 — 본문 + 오른쪽 목차.
+   Tailwind arbitrary-value 정렬 이슈를 피해 plain 미디어쿼리로 정의. */
+@media (min-width: 1200px) {
+  .post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    gap: 3rem;
+    align-items: start;
+  }
+}
+
+/* 앵커 이동 시 스티키 nav 아래로 내려앉도록 여백 확보 */
+.prose :where(h1, h2, h3, h4) {
+  scroll-margin-top: 6rem;
+}
+
+/* 목차 클릭 시 부드러운 스크롤 (모션 민감 사용자는 즉시 이동) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* GFM 마크다운 파이프 테이블 스타일 (커스텀 <Table> 컴포넌트와 동일한 룩) */
 .prose table {
   border-collapse: collapse;
