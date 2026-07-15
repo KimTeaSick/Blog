@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
+import remarkGfm from 'remark-gfm'
 import React from 'react'
 
 function Table({ data }) {
@@ -133,9 +134,10 @@ export function CustomMDX(props) {
     <MDXRemote
       {...rest}
       components={{ ...components, ...(props.components || {}) }}
+      // remarkGfm: GFM 파이프 테이블/취소선/체크리스트 등 마크다운 확장 렌더링.
       // 콘텐츠는 본인 소유 submodule(신뢰됨)이라 style={{}} 등 정상 JSX 표현식을 허용.
       // blockDangerousJS 는 기본 true 로 유지되어 eval/Function/require 등 RCE 는 계속 차단.
-      options={{ blockJS: false }}
+      options={{ blockJS: false, mdxOptions: { remarkPlugins: [remarkGfm] } }}
     />
   )
 }
