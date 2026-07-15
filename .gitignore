@@ -20,6 +20,16 @@
 *.pem
 .vscode
 
+# ssh / private keys (never commit)
+home
+home.pub
+*.key
+id_ed25519*
+id_rsa*
+id_ecdsa*
+*_ed25519
+*.ppk
+
 # debug
 npm-debug.log*
 yarn-debug.log*
