@@ -1,5 +1,41 @@
 # 블로그 자동 업데이트 설정 가이드
 
+> ## ⚠️ 이 문서의 방식은 현재 구조에서 동작하지 않습니다
+>
+> 아래 revalidation 설정은 **"콘텐츠를 런타임에 읽어올 때"** 유효한 방법입니다.
+> 지금 이 블로그는 `app/blog/utils.ts` 가 `fs.readFileSync` 로 **빌드 시점에 굳은
+> 파일**을 읽습니다. `revalidatePath()` 는 페이지를 다시 렌더링할 뿐이고, 다시
+> 렌더링해도 읽는 파일이 그대로이므로 **새 글은 절대 나타나지 않습니다.**
+>
+> 게다가 `contents/` 는 git 서브모듈이라 **커밋 SHA 를 고정**합니다. blog-contents 에
+> push 해도 Blog 저장소의 포인터는 그대로여서, Vercel 이 재배포해도 옛 콘텐츠로
+> 다시 빌드됩니다.
+>
+> **현재 실제로 동작하는 방식은 이렇습니다.**
+>
+> ```
+> blog-contents 에 push
+>       ↓  .github/workflows/revalidate.yml
+> Vercel Deploy Hook 호출
+>       ↓
+> Blog 빌드 시작
+>       ↓  prebuild → scripts/sync-contents.mjs
+> blog-contents 최신 main 을 tarball 로 받아 contents/ 에 채움
+>       ↓
+> next build → 배포 (약 1~2분)
+> ```
+>
+> 즉 **blog-contents 에 push 하는 것만으로 배포된 블로그가 갱신됩니다.**
+> 아래 revalidation 설정은 하지 않아도 되고, 해도 효과가 없습니다.
+>
+> 나중에 재배포 없이 즉시 반영되게 하려면 `app/blog/utils.ts` 를 파일시스템 대신
+> GitHub 에서 fetch 하도록 바꿔야 하며, 그때 비로소 아래 내용이 의미를 갖습니다.
+
+---
+
+<details>
+<summary>참고용 원문 (현재 구조에서는 적용되지 않음)</summary>
+
 contents만 업데이트해도 Vercel 재배포 없이 바로 반영되도록 설정하는 방법입니다.
 
 ## 🎯 작동 원리
@@ -177,3 +213,5 @@ curl -X POST https://your-domain.vercel.app/api/revalidate \
 4. 사용자는 최신 콘텐츠를 바로 볼 수 있습니다
 
 추가로 ISR이 60초마다 자동으로 재검증하므로, webhook이 실패하더라도 최대 1분 내에 업데이트가 반영됩니다.
+
+</details>
