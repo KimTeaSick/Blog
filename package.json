@@ -2,11 +2,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/sync-contents.mjs",
-    "build": "next build",
+    "build": "node scripts/sync-contents.mjs && next build",
     "start": "next start",
     "sync-contents": "node scripts/sync-contents.mjs",
-    "postinstall": "git submodule update --init --recursive || true"
+    "postinstall": "node scripts/sync-contents.mjs --soft"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.2",
