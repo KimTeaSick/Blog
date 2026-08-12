@@ -57,6 +57,8 @@ html {
 body {
   margin: 0;
   background: var(--bg);
+  word-break: keep-all;
+  overflow-wrap: break-word;
   transition: background-color 180ms ease, color 180ms ease;
 }
 

@@ -40,8 +40,11 @@ export default function Page() {
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
           Joseph Kim · Frontend Developer
         </p>
-        <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(2.6rem,7vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em]">
-          잘 보이고, 잘 눌리고, 잘 쓰이는 서비스를 만듭니다
+        <h1 className="mt-5 text-[clamp(1.35rem,5.5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.04em]">
+          <span className="block whitespace-nowrap">
+            잘 보이고, 잘 눌리고, 잘 쓰이는
+          </span>
+          <span className="block">서비스를 만듭니다</span>
         </h1>
         <p className="mt-7 max-w-[58ch] text-pretty text-[clamp(1rem,1.7vw,1.18rem)] leading-8 text-[var(--muted)]">
           “사용자가 이 버튼 꼭 누르게 하고 싶다”는 집념으로 인터랙션을
@@ -115,6 +118,20 @@ export default function Page() {
 
       <section className="border-t border-[var(--line)]">
         <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
+          <SectionHeader title="최근 프로젝트" href="/portfolio" />
+          <PortfolioList limit={3} variant="compact" />
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
+          <SectionHeader title="최근 글" href="/blog" />
+          <BlogPosts limit={4} />
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
           <SectionHeader title="관심 있는 영역" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {focusAreas.map((area) => (
@@ -126,20 +143,6 @@ export default function Page() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--line)]">
-        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
-          <SectionHeader title="최근 프로젝트" href="/portfolio" />
-          <PortfolioList limit={3} variant="compact" />
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--line)]">
-        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
-          <SectionHeader title="최근 글" href="/blog" />
-          <BlogPosts limit={4} />
         </div>
       </section>
     </>

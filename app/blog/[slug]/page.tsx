@@ -5,7 +5,8 @@ import { TableOfContents } from 'app/components/table-of-contents'
 import { getBlogPosts } from 'app/blog/utils'
 import { getHeadings } from 'app/lib/toc'
 import { absoluteUrl, getBlogOgImage, siteConfig } from 'app/lib/site'
-import { ShareMenu } from 'app/components/share-menu'
+import { PostNavigation } from 'app/components/post-navigation'
+import { ArticleShare } from 'app/components/article-share'
 import type { Metadata } from 'next'
 
 // ISR: 60초마다 자동으로 재검증
@@ -74,13 +75,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function Blog({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  let post = getBlogPosts().find((post) => post.slug === slug)
+  const posts = getBlogPosts()
+  const currentIndex = posts.findIndex((post) => post.slug === slug)
+  const post = posts[currentIndex]
 
   if (!post) {
     notFound()
   }
 
   const headings = getHeadings(post.content)
+  const previousPost = posts[currentIndex + 1]
+  const nextPost = posts[currentIndex - 1]
   const pageUrl = absoluteUrl(`/blog/${post.slug}`)
   const ogImage = getBlogOgImage(post.metadata.title, post.metadata.summary)
   const jsonLd = {
@@ -118,31 +123,53 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
           Engineering blog
         </p>
-        <h1 className="title mt-5 max-w-[17ch] text-[clamp(2.5rem,7vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em]">
+        <h1 className="title mt-5 max-w-[19ch] text-[clamp(2.125rem,5.5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
           {post.metadata.title}
         </h1>
-        <p className="mt-6 max-w-[54ch] text-pretty text-[clamp(1rem,1.7vw,1.125rem)] leading-7 text-[var(--muted)]">
-          {post.metadata.summary}
-        </p>
-        <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] pt-5">
+        <div className="mt-7">
           <time className="font-mono text-xs text-[var(--muted)]">
             {post.metadata.publishedAt.replaceAll('-', '.')}
           </time>
-          <ShareMenu url={pageUrl} />
         </div>
       </header>
-      <section className="border-t border-[var(--line)]">
+      <section>
         <div className="post-layout mx-auto w-full max-w-[1180px] px-5 pb-20 pt-10 md:px-11 md:pb-28 md:pt-14">
           <article className="prose max-w-none">
             <CustomMDX source={post.content} slug={slug} />
           </article>
           <aside className="hidden xl:block">
-            <div className="sticky top-24">
-              <TableOfContents headings={headings} />
+            <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col">
+              <div className="min-h-0 overflow-y-auto pr-2">
+                <TableOfContents headings={headings} />
+              </div>
+              <div className="mt-8 shrink-0">
+                <ArticleShare url={pageUrl} />
+              </div>
             </div>
           </aside>
           <div className="max-w-[760px] xl:col-start-1">
+            <div className="mb-12 xl:hidden">
+              <ArticleShare url={pageUrl} />
+            </div>
             <Comments />
+            <PostNavigation
+              previousPost={
+                previousPost
+                  ? {
+                      slug: previousPost.slug,
+                      title: previousPost.metadata.title,
+                    }
+                  : undefined
+              }
+              nextPost={
+                nextPost
+                  ? {
+                      slug: nextPost.slug,
+                      title: nextPost.metadata.title,
+                    }
+                  : undefined
+              }
+            />
           </div>
         </div>
       </section>

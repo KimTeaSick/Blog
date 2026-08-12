@@ -85,7 +85,7 @@ export default async function PortfolioProject({ params }: { params: Promise<{ s
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
           Portfolio / Case study
         </p>
-        <h1 className="title mt-5 max-w-[18ch] text-[clamp(2.5rem,7vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em]">
+        <h1 className="title mt-5 max-w-[20ch] text-[clamp(2.125rem,5.5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
           {project.metadata.title}
         </h1>
         <p className="mt-6 max-w-[56ch] text-pretty text-[clamp(1rem,1.7vw,1.125rem)] leading-7 text-[var(--muted)]">

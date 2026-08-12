@@ -19,23 +19,45 @@ export function PortfolioList({
   if (variant === 'compact') {
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {projects.map((project, index) => (
-          <Link
-            key={project.slug}
-            href={`/portfolio/${project.slug}`}
-            className="group border-t border-[var(--line)] pt-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
-          >
-            <span className="font-mono text-[11px] text-[var(--muted)]">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h3 className="mt-4 text-balance text-xl font-semibold leading-snug tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)]">
-              {project.metadata.title}
-            </h3>
-            <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-              {project.metadata.description}
-            </p>
-          </Link>
-        ))}
+        {projects.map((project, index) => {
+          const thumbnail = project.metadata.thumbnail || project.images[0]
+          const fallbackThumbnail = `/og?title=${encodeURIComponent(project.metadata.title)}&description=${encodeURIComponent(project.metadata.description)}`
+
+          return (
+            <Link
+              key={project.slug}
+              href={`/portfolio/${project.slug}`}
+              className="group flex flex-col focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-[var(--bg-soft)]">
+                {thumbnail ? (
+                  <Image
+                    src={thumbnail}
+                    alt={`${project.metadata.title} 썸네일`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.025] group-hover:opacity-90"
+                  />
+                ) : (
+                  <img
+                    src={fallbackThumbnail}
+                    alt={`${project.metadata.title} 썸네일`}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025] group-hover:opacity-90"
+                  />
+                )}
+                <span className="absolute left-3 top-3 bg-[var(--bg)] px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-[var(--fg)]">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="mt-4 text-balance text-xl font-semibold leading-snug tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)]">
+                {project.metadata.title}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+                {project.metadata.description}
+              </p>
+            </Link>
+          )
+        })}
       </div>
     )
   }

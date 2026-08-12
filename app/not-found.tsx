@@ -6,7 +6,7 @@ export default function NotFound() {
       <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">
         Error 404
       </p>
-      <h1 className="mt-5 text-[clamp(2.75rem,8vw,5rem)] font-semibold leading-none tracking-[-0.045em]">
+      <h1 className="mt-5 text-[clamp(2.25rem,6vw,4rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
         페이지를 찾을 수 없습니다
       </h1>
       <p className="mt-6 text-[var(--muted)]">

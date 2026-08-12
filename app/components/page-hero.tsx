@@ -30,8 +30,8 @@ export function PageHero({
       <h1
         className={`mt-5 max-w-[16ch] text-balance font-semibold leading-[0.99] tracking-[-0.045em] text-[var(--fg)] ${
           compact
-            ? 'text-[clamp(2.5rem,7vw,4.75rem)]'
-            : 'text-[clamp(2.75rem,7.5vw,5.25rem)]'
+            ? 'text-[clamp(2.125rem,5.5vw,3.75rem)]'
+            : 'text-[clamp(2.25rem,6vw,4.25rem)]'
         }`}
       >
         {title}
