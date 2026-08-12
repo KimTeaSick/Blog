@@ -1,84 +1,145 @@
-import Link from "next/link";
-import { BlogPosts } from "app/components/posts";
-import { PortfolioList } from "app/components/portfolio-list";
+import Link from 'next/link'
+import { BlogPosts } from 'app/components/posts'
+import { PortfolioList } from 'app/components/portfolio-list'
+import { SectionHeader } from 'app/components/page-hero'
+import { PortfolioImageFlow } from 'app/components/portfolio-image-flow'
 
-// ISR: 60초마다 자동으로 재검증
 export const revalidate = 60
+
+const focusAreas = [
+  {
+    title: 'Interactive UI',
+    description: '사용자의 행동을 자연스럽게 이끄는 화면과 인터랙션 설계',
+  },
+  {
+    title: '실시간 미디어',
+    description: '녹음·재생·하이라이팅이 맞물리는 미디어 경험 구현',
+  },
+  {
+    title: '디자인 시스템',
+    description: '재사용 가능한 컴포넌트 체계와 일관된 UI 기반 구축',
+  },
+  {
+    title: '성능 최적화',
+    description: 'SSR과 렌더링 구조를 다듬어 실제 로딩 시간을 단축',
+  },
+  {
+    title: '접근성',
+    description: '특수학급 교육 서비스에서 배운 접근성 중심의 개발',
+  },
+  {
+    title: 'AI 도구',
+    description: '에이전트와 생성형 AI를 개발 워크플로에 적용하는 실험',
+  },
+]
 
 export default function Page() {
   return (
-    <section>
-      <div className="mb-12">
-        <p className="rise rise-1 font-geist-mono mb-3 text-xs uppercase tracking-[0.2em] text-neutral-500">
-          Frontend Developer
+    <>
+      <section className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-14 md:px-11 md:pb-14 md:pt-24">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
+          Joseph Kim · Frontend Developer
         </p>
-        <h1 className="rise rise-1 text-5xl font-semibold tracking-tighter">
-          <span className="text-gradient">Joseph Kim</span>
+        <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(2.6rem,7vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em]">
+          잘 보이고, 잘 눌리고, 잘 쓰이는 서비스를 만듭니다
         </h1>
-      </div>
-
-      <div className="mb-12 space-y-6">
-        <div className="space-y-4">
-          <p className="rise rise-2 text-lg leading-relaxed text-neutral-800 dark:text-neutral-200">
-            프론트엔드 개발자로써{" "}
-            <span className="marker font-medium text-neutral-900 dark:text-neutral-100">
-              "사용자가 이 버튼 꼭 누르게 하고 싶다"
-            </span>
-            는 집념으로 인터랙션을 만들어왔습니다.
-          </p>
-
-          <p className="rise rise-3 text-lg leading-relaxed text-neutral-800 dark:text-neutral-200">
-            특수 학급용 AIDT 서비스도 직접 설계·개발해서, 지금은{" "}
-            <span className="marker font-medium text-neutral-900 dark:text-neutral-100">
-              국가특수교육원에서 실제로 쓰이고 있어
-            </span>{" "}
-            괜히 어깨가 올라갑니다.
-          </p>
-        </div>
-
-        <div className="rise rise-3 border-l-2 border-neutral-300 dark:border-neutral-700 pl-4 py-2">
-          <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
-            기술은 멋있어 보여도, 결국{" "}
-            <span className="italic">"사람들이 편하게 쓸 수 있냐"</span>가 제
-            기준이라 늘 구조부터 차근차근 정리하는 편입니다.
-          </p>
-        </div>
-
-        <p className="rise rise-4 text-lg font-medium text-neutral-900 dark:text-neutral-100">
-          결론은… 잘 보이고, 잘 눌리고, 잘쓰이는 서비스 만드는 일을 누구보다
-          즐깁니다.
+        <p className="mt-7 max-w-[58ch] text-pretty text-[clamp(1rem,1.7vw,1.18rem)] leading-8 text-[var(--muted)]">
+          “사용자가 이 버튼 꼭 누르게 하고 싶다”는 집념으로 인터랙션을
+          만들어왔습니다. 특수 학급용 AIDT 서비스도 직접 설계·개발해 현재
+          국가특수교육원에서 실제로 사용되고 있습니다.
         </p>
-      </div>
-
-      {/* Portfolio Section */}
-      <div className="my-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold tracking-tight">
-            Recent Projects
-          </h2>
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/portfolio"
-            className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+            className="rounded-[3px] bg-[var(--fg)] px-6 py-3.5 text-[15px] font-semibold text-[var(--bg)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--on-accent)]"
           >
-            View all →
+            포트폴리오 보기
           </Link>
-        </div>
-        <PortfolioList limit={3} />
-      </div>
-
-      {/* Blog Section */}
-      <div className="my-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold tracking-tight">Recent Posts</h2>
           <Link
             href="/blog"
-            className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+            className="rounded-[3px] border border-[var(--line)] px-6 py-3.5 text-[15px] font-semibold transition-colors hover:border-[var(--fg)]"
           >
-            View all →
+            블로그 읽기
+          </Link>
+          <a
+            href="https://github.com/KimTeaSick"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-[3px] border border-[var(--line)] px-6 py-3.5 text-[15px] font-semibold transition-colors hover:border-[var(--fg)]"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1180px] px-5 pb-16 md:px-11 md:pb-20">
+        <PortfolioImageFlow />
+      </section>
+
+      <section className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 pb-16 md:grid-cols-2 md:gap-14 md:px-11 md:pb-20">
+        <div>
+          <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] font-semibold tracking-[-0.03em]">
+            무엇을 만들어왔나
+          </h2>
+          <p className="mt-4 text-pretty text-[clamp(0.95rem,1.5vw,1.05rem)] leading-7 text-[var(--muted)]">
+            특수학급 국어 교과서의 녹음·하이라이팅부터 AI 캐릭터 대화
+            서비스의 SSR까지, 여러 프로젝트에서 화면과 미디어를
+            담당했습니다. 문제와 결정 과정은 프로젝트별로 정리했습니다.
+          </p>
+          <Link
+            href="/portfolio"
+            className="mt-5 inline-block border-b border-[var(--accent)] pb-1 font-mono text-xs"
+          >
+            프로젝트 9개 →
           </Link>
         </div>
-        <BlogPosts limit={4} variant="grid" />
-      </div>
-    </section>
-  );
+        <div>
+          <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] font-semibold tracking-[-0.03em]">
+            왜 글을 쓰나
+          </h2>
+          <p className="mt-4 text-pretty text-[clamp(0.95rem,1.5vw,1.05rem)] leading-7 text-[var(--muted)]">
+            한 번 겪은 문제를 두 번 헤매지 않으려고 씁니다. 결론만 남기기보다
+            어떤 선택을 했고 왜 그렇게 판단했는지, 시도했던 과정까지 함께
+            기록합니다.
+          </p>
+          <Link
+            href="/blog"
+            className="mt-5 inline-block border-b border-[var(--accent)] pb-1 font-mono text-xs"
+          >
+            블로그 →
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
+          <SectionHeader title="관심 있는 영역" />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {focusAreas.map((area) => (
+              <div key={area.title} className="rounded-md bg-[var(--bg-soft)] p-6">
+                <h3 className="font-mono text-sm font-medium">{area.title}</h3>
+                <p className="mt-3 text-[15px] leading-6 text-[var(--muted)]">
+                  {area.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
+          <SectionHeader title="최근 프로젝트" href="/portfolio" />
+          <PortfolioList limit={3} variant="compact" />
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-11 md:py-20">
+          <SectionHeader title="최근 글" href="/blog" />
+          <BlogPosts limit={4} />
+        </div>
+      </section>
+    </>
+  )
 }

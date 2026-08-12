@@ -59,19 +59,19 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
 
   return (
     <nav aria-label="목차" className="text-sm">
-      <p className="mb-3 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+      <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--fg)]">
         목차
       </p>
       <div className="relative">
         {/* 좌측 전체 트랙 */}
         <span
           aria-hidden
-          className="absolute left-0 top-0 h-full w-px bg-neutral-200 dark:bg-neutral-800"
+          className="absolute left-0 top-0 h-full w-px bg-[var(--line)]"
         />
         {/* 스크롤 따라 미끄러지는 활성 인디케이터 */}
         <span
           aria-hidden
-          className="absolute left-0 w-0.5 rounded-full bg-neutral-900 transition-all duration-300 ease-out motion-reduce:transition-none dark:bg-neutral-100"
+          className="absolute left-0 w-0.5 rounded-full bg-[var(--accent)] transition-all duration-300 ease-out motion-reduce:transition-none"
           style={{
             transform: `translateY(${indicator.top}px)`,
             height: `${indicator.height}px`,
@@ -90,8 +90,8 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
                     h.level === 3 ? 'pl-6' : 'pl-3'
                   } ${
                     active
-                      ? 'font-medium text-neutral-900 dark:text-neutral-100'
-                      : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200'
+                      ? 'font-medium text-[var(--fg)]'
+                      : 'text-[var(--muted)] hover:text-[var(--fg)]'
                   }`}
                 >
                   {h.text}

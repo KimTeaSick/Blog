@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { CustomMDX } from 'app/components/mdx'
-import { formatDate, getPortfolioProjects, getPortfolioProject } from 'app/portfolio/utils'
-import { baseUrl } from 'app/sitemap'
+import { getPortfolioProjects, getPortfolioProject } from 'app/portfolio/utils'
+import { absoluteUrl, baseUrl } from 'app/lib/site'
 
 export async function generateStaticParams() {
   const projects = getPortfolioProjects()
@@ -19,7 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const { title, description, date, thumbnail } = project.metadata
-  const ogImage = thumbnail || `${baseUrl}/og?title=${encodeURIComponent(title)}`
+  const ogImage = thumbnail
+    ? absoluteUrl(thumbnail)
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
 
   return {
     title,
@@ -53,8 +55,10 @@ export default async function PortfolioProject({ params }: { params: Promise<{ s
     notFound()
   }
 
+  const heroImage = project.metadata.thumbnail || project.images[0]
+
   return (
-    <section>
+    <>
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -77,92 +81,95 @@ export default async function PortfolioProject({ params }: { params: Promise<{ s
         }}
       />
 
-      {/* Thumbnail */}
-      {project.metadata.thumbnail && (
-        <div className="relative w-full h-64 mb-8 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
-          <Image
-            src={project.metadata.thumbnail}
-            alt={project.metadata.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
-
-      {/* Header */}
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {project.metadata.title}
-      </h1>
-
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-2 mb-8 text-sm gap-2">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(project.metadata.date)}
+      <header className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-14 md:px-11 md:pb-16 md:pt-24">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
+          Portfolio / Case study
         </p>
-        {project.metadata.tags && project.metadata.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {project.metadata.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-1 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300"
+        <h1 className="title mt-5 max-w-[18ch] text-[clamp(2.5rem,7vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em]">
+          {project.metadata.title}
+        </h1>
+        <p className="mt-6 max-w-[56ch] text-pretty text-[clamp(1rem,1.7vw,1.125rem)] leading-7 text-[var(--muted)]">
+          {project.metadata.description}
+        </p>
+        <div className="mt-7 flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
+          <time>{project.metadata.date.replaceAll('-', '.')}</time>
+          <span aria-hidden="true">/</span>
+          {project.metadata.tags.map((tag) => (
+            <span key={tag} className="rounded-full border border-[var(--line)] px-2.5 py-1">
+              {tag}
+            </span>
+          ))}
+        </div>
+        {(project.metadata.github || project.metadata.demo) && (
+          <div className="mt-7 flex flex-wrap gap-3">
+            {project.metadata.github && (
+              <a
+                href={project.metadata.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-[3px] bg-[var(--fg)] px-5 py-3 text-sm font-semibold text-[var(--bg)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--on-accent)]"
               >
-                {tag}
-              </span>
-            ))}
+                GitHub ↗
+              </a>
+            )}
+            {project.metadata.demo && (
+              <a
+                href={project.metadata.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-[3px] border border-[var(--line)] px-5 py-3 text-sm font-semibold transition-colors hover:border-[var(--fg)]"
+              >
+                서비스 보기 ↗
+              </a>
+            )}
           </div>
         )}
-      </div>
+      </header>
 
-      {/* Links */}
-      {(project.metadata.github || project.metadata.demo) && (
-        <div className="flex gap-4 mb-8">
-          {project.metadata.github && (
-            <a
-              href={project.metadata.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 underline"
-            >
-              GitHub
-            </a>
-          )}
-          {project.metadata.demo && (
-            <a
-              href={project.metadata.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 underline"
-            >
-              Live Demo
-            </a>
-          )}
-        </div>
-      )}
-
-      {/* Content */}
-      <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <CustomMDX source={project.content} slug={slug} type="portfolio" />
-      </article>
-
-      {/* Image Gallery */}
-      {project.images.length > 0 && (
-        <div className="mt-12">
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
-            {project.images.map((image, index) => (
-              <div
-                key={image}
-                className="flex-shrink-0 w-[80%] sm:w-[60%] md:w-[45%] rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800 snap-center"
-              >
-                <img
-                  src={image}
-                  alt={`${project.metadata.title} - Image ${index + 1}`}
-                  className="w-full h-auto"
-                />
-              </div>
-            ))}
+      {heroImage && (
+        <section className="mx-auto w-full max-w-[1180px] px-5 pb-14 md:px-11 md:pb-20">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-md bg-[var(--bg-soft)]">
+            <Image
+              src={heroImage}
+              alt={`${project.metadata.title} 대표 화면`}
+              fill
+              sizes="(max-width: 1180px) 100vw, 1100px"
+              className="object-cover"
+              priority
+            />
           </div>
-        </div>
+        </section>
       )}
-    </section>
+
+      <section className="border-t border-[var(--line)]">
+        <div className="mx-auto w-full max-w-[1180px] px-5 pb-20 pt-10 md:px-11 md:pb-28 md:pt-14">
+          <article className="prose max-w-[760px]">
+            <CustomMDX source={project.content} slug={slug} type="portfolio" />
+          </article>
+
+          {project.images.length > 0 && (
+            <div className="mt-16 border-t border-[var(--line)] pt-9">
+              <p className="mb-6 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                Project gallery
+              </p>
+              <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4">
+                {project.images.map((image, index) => (
+                  <div
+                    key={image}
+                    className="w-[88%] shrink-0 snap-center overflow-hidden rounded-sm bg-[var(--bg-soft)] sm:w-[62%] lg:w-[48%]"
+                  >
+                    <img
+                      src={image}
+                      alt={`${project.metadata.title} 화면 ${index + 1}`}
+                      className="h-auto w-full"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   )
 }
