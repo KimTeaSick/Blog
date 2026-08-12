@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { BlogPosts } from 'app/components/posts'
 import { PortfolioList } from 'app/components/portfolio-list'
 import { SectionHeader } from 'app/components/page-hero'
-import { PortfolioImageFlow } from 'app/components/portfolio-image-flow'
+// import { PortfolioImageFlow } from 'app/components/portfolio-image-flow'
 
 export const revalidate = 60
 
@@ -72,9 +72,11 @@ export default function Page() {
         </div>
       </section>
 
+      {/*
       <section className="mx-auto w-full max-w-[1180px] px-5 pb-16 md:px-11 md:pb-20">
         <PortfolioImageFlow />
       </section>
+      */}
 
       <section className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 pb-16 md:grid-cols-2 md:gap-14 md:px-11 md:pb-20">
         <div>
