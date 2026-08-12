@@ -7,6 +7,11 @@ import { getHeadings } from 'app/lib/toc'
 import { absoluteUrl, getBlogOgImage, siteConfig } from 'app/lib/site'
 import { PostNavigation } from 'app/components/post-navigation'
 import { ArticleShare } from 'app/components/article-share'
+import {
+  PostEngagementProvider,
+  PostLikeButton,
+  PostViewCount,
+} from 'app/components/post-engagement'
 import type { Metadata } from 'next'
 
 // ISR: 60초마다 자동으로 재검증
@@ -119,60 +124,64 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <header className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-14 md:px-11 md:pb-16 md:pt-24">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
-          Engineering blog
-        </p>
-        <h1 className="title mt-5 max-w-[19ch] text-[clamp(2.125rem,5.5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
-          {post.metadata.title}
-        </h1>
-        <div className="mt-7">
-          <time className="font-mono text-xs text-[var(--muted)]">
-            {post.metadata.publishedAt.replaceAll('-', '.')}
-          </time>
-        </div>
-      </header>
-      <section>
-        <div className="post-layout mx-auto w-full max-w-[1180px] px-5 pb-20 pt-10 md:px-11 md:pb-28 md:pt-14">
-          <article className="prose max-w-none">
-            <CustomMDX source={post.content} slug={slug} />
-          </article>
-          <aside className="hidden xl:block">
-            <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col">
-              <div className="min-h-0 overflow-y-auto pr-2">
-                <TableOfContents headings={headings} />
+      <PostEngagementProvider slug={slug}>
+        <header className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-14 md:px-11 md:pb-16 md:pt-24">
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent)]">
+            Engineering blog
+          </p>
+          <h1 className="title mt-5 max-w-[19ch] text-[clamp(2.125rem,5.5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
+            {post.metadata.title}
+          </h1>
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+            <time className="font-mono text-xs text-[var(--muted)]">
+              {post.metadata.publishedAt.replaceAll('-', '.')}
+            </time>
+            <PostViewCount />
+          </div>
+        </header>
+        <section>
+          <div className="post-layout mx-auto w-full max-w-[1180px] px-5 pb-20 pt-10 md:px-11 md:pb-28 md:pt-14">
+            <article className="prose max-w-none">
+              <CustomMDX source={post.content} slug={slug} />
+            </article>
+            <aside className="hidden xl:block">
+              <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col">
+                <div className="min-h-0 overflow-y-auto pr-2">
+                  <TableOfContents headings={headings} />
+                </div>
+                <div className="mt-8 shrink-0">
+                  <ArticleShare url={pageUrl} />
+                </div>
               </div>
-              <div className="mt-8 shrink-0">
+            </aside>
+            <div className="max-w-[760px] xl:col-start-1">
+              <PostLikeButton />
+              <div className="mb-12 mt-12 xl:hidden">
                 <ArticleShare url={pageUrl} />
               </div>
+              <Comments />
+              <PostNavigation
+                previousPost={
+                  previousPost
+                    ? {
+                        slug: previousPost.slug,
+                        title: previousPost.metadata.title,
+                      }
+                    : undefined
+                }
+                nextPost={
+                  nextPost
+                    ? {
+                        slug: nextPost.slug,
+                        title: nextPost.metadata.title,
+                      }
+                    : undefined
+                }
+              />
             </div>
-          </aside>
-          <div className="max-w-[760px] xl:col-start-1">
-            <div className="mb-12 xl:hidden">
-              <ArticleShare url={pageUrl} />
-            </div>
-            <Comments />
-            <PostNavigation
-              previousPost={
-                previousPost
-                  ? {
-                      slug: previousPost.slug,
-                      title: previousPost.metadata.title,
-                    }
-                  : undefined
-              }
-              nextPost={
-                nextPost
-                  ? {
-                      slug: nextPost.slug,
-                      title: nextPost.metadata.title,
-                    }
-                  : undefined
-              }
-            />
           </div>
-        </div>
-      </section>
+        </section>
+      </PostEngagementProvider>
     </>
   )
 }

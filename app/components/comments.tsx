@@ -33,7 +33,7 @@ export function Comments() {
     script.setAttribute('data-category-id', categoryId)
     script.setAttribute('data-mapping', 'pathname')
     script.setAttribute('data-strict', '0')
-    script.setAttribute('data-reactions-enabled', '1')
+    script.setAttribute('data-reactions-enabled', '0')
     script.setAttribute('data-emit-metadata', '0')
     script.setAttribute('data-input-position', 'bottom')
     script.setAttribute('data-theme', getTheme())

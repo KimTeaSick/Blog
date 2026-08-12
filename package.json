@@ -2,12 +2,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/sync-contents.mjs && next build",
+    "build": "node scripts/sync-contents.mjs && node scripts/migrate-engagement.mjs --soft && next build",
+    "db:migrate": "node scripts/migrate-engagement.mjs",
     "start": "next start",
     "sync-contents": "node scripts/sync-contents.mjs",
     "postinstall": "node scripts/sync-contents.mjs --soft"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",
