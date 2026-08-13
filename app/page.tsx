@@ -72,6 +72,14 @@ export default function Page() {
           >
             GitHub ↗
           </a>
+          <a
+            href="https://www.linkedin.com/in/joseph-kim-35770b248/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-[3px] border border-[var(--line)] px-6 py-3.5 text-[15px] font-semibold transition-colors hover:border-[var(--fg)]"
+          >
+            LinkedIn ↗
+          </a>
         </div>
       </section>
 
